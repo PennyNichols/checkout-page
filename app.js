@@ -4,7 +4,6 @@
 // remove button pop up verification and then removes item
 // Optional extras: discount percentage, total savings
 
-
 let products = document.querySelector(".products");
 products.addEventListener("click", (e) => {
 	if (e.target.classList.contains("remove-product")) {
@@ -33,11 +32,23 @@ const calcLine = (productDetails) => {
 	let lineTotal = productDetails.querySelector(".product-line-price");
 
 	lineTotal.innerText = ((qty * (reducedPrice * 100)) / 100).toFixed(2);
-	discount.innerText = ((originalPrice * 100 * qty - reducedPrice * 100 * qty) / 100).toFixed(2);
+	discount.innerText = ((originalPrice * 100 * qty - reducedPrice * 100 * qty) /100).toFixed(2);
 
-    calcTotal();
+	calcTotal();
 };
 
-const calcTotal = () =>{
-    let productPrice = document.querySelectorAll('.product-line-price')
-}
+const calcTotal = () => {
+	let lineTotals = document.querySelectorAll(".product-line-price");
+	let subtotal = 0;
+	let tax = 18;
+	lineTotals.forEach((eachLineTotal) => {
+		subtotal += Number(eachLineTotal.innerText);
+	});
+
+	taxTotal = (subtotal * tax) / 100;
+	console.log(taxTotal);
+
+	document.querySelector("#subtotal").innerText = subtotal.toFixed(2);
+	document.querySelector("#tax-total").innerText = taxTotal.toFixed(2);
+};
+calcTotal();

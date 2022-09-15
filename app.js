@@ -2,13 +2,16 @@
 // plus and minus buttons adjust the quantity of each item
 // adjusting quantity changes the value for product total, subtotal, tax, and total
 // remove button pop up verification and then removes item
-// Optional extras: discount percentage, total savings
+// Optional extras I added: discount calculations, total savings
+
+const shipping = 15;
 
 let products = document.querySelector(".products");
 products.addEventListener("click", (e) => {
 	if (e.target.classList.contains("remove-product")) {
 		if (confirm(`Are you sure you want to remove this item?`)) {
 			e.target.parentElement.parentElement.parentElement.remove();
+            calcTotal();
 		}
 	} else if (e.target.classList.contains("plus")) {
 		e.target.previousElementSibling.innerText++;
@@ -19,6 +22,7 @@ products.addEventListener("click", (e) => {
 			calcLine(e.target.parentElement.parentElement);
 		} else if (confirm(`Are you sure you want to remove this item?`)) {
 			e.target.parentElement.parentElement.parentElement.remove();
+            calcTotal();
 		}
 	}
 });
@@ -28,7 +32,7 @@ const calcLine = (productDetails) => {
 	let qty = productDetails.querySelector("#product-quantity").innerText;
 	let reducedPrice = productDetails.querySelector("strong").innerText;
 	let originalPrice = productDetails.querySelector(".line-through").innerText;
-	let discount = productDetails.querySelector("#discount");
+	let discount = productDetails.querySelector(".discount");
 	let lineTotal = productDetails.querySelector(".product-line-price");
 
 	lineTotal.innerText = ((qty * (reducedPrice * 100)) / 100).toFixed(2);
@@ -41,14 +45,24 @@ const calcTotal = () => {
 	let lineTotals = document.querySelectorAll(".product-line-price");
 	let subtotal = 0;
 	let tax = 18;
+    let discounts = document.querySelectorAll(".discount");
+    let totalDiscount = 0;
+
 	lineTotals.forEach((eachLineTotal) => {
 		subtotal += Number(eachLineTotal.innerText);
 	});
 
-	taxTotal = (subtotal * tax) / 100;
-	console.log(taxTotal);
+    discounts.forEach((eachDiscount) => {
+        totalDiscount += Number(eachDiscount.innerText);
+    });
+
+    taxTotal = (subtotal * tax) / 100;
+    grandTotal = subtotal + taxTotal + shipping;
+
 
 	document.querySelector("#subtotal").innerText = subtotal.toFixed(2);
 	document.querySelector("#tax-total").innerText = taxTotal.toFixed(2);
+    document.querySelector("#grand-total").innerText = grandTotal.toFixed(2);
+    document.querySelector("#discount-total").innerText = totalDiscount.toFixed(2);
 };
 calcTotal();

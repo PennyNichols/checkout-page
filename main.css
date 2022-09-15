@@ -138,14 +138,16 @@ main {
   }
   
   .product img {
-    width: 30%;
+    width: 200px !important;
     border-radius: 10px;
-    margin-right: 20px;
+    margin-right: 125px !important;
   }
   
   .product-info {
     font-family: Mon, Arial, Helvetica, sans-serif;
     width: 100%;
+    justify-content: center;
+    text-align: center;
   }
   
   .product-info h2 {
@@ -171,7 +173,7 @@ main {
     border: 1px solid rgb(136, 136, 136);
     display: flex;
     justify-content: space-around;
-    width: 50%;
+    width: 100% !important;
     margin-top: 25px;
   }
   
@@ -413,7 +415,7 @@ main {
       display: flex;
       justify-content: space-around;
       width: 50%;
-      margin-top: 25px;
+      margin-top: 10px;
     }
   
     .quantity-controller button,
@@ -545,9 +547,11 @@ main {
     float: left;
     clear: left;
     width: auto;
-    margin-top: 10px;
+    margin: 25px 0;
+    margin-top: 0;
   }
   
   .product-line-price:before {
     content: "Product Total: $";
   }
+
